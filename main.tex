@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{customstyle}
+% "ming": 新細明體, "kai": TW-Kai（楷體）, "serif": Noto Serif CJK TC（有襯線）, "sans": Noto Sans CJK TC（無襯線）
+% Overleaf沒有新細明體
+\setMyCJK{kai}
+\usepackage{newtxtext, newtxmath}
+
+\title{簡單模板}
+\author{作者}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{中文測試}
+\zhlipsum[1]
+\section{英文測試}
+\lipsum[1]
+
+
+% 參考文獻
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

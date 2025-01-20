@@ -1,0 +1,356 @@
+% =========== customstyle.sty ===========
+% Author: Homer
+% =======================================
+\ProvidesPackage{customstyle}
+
+% 中文支援
+\RequirePackage{zhnumber}
+\RequirePackage[UTF8, heading = true]{ctex}
+\RequirePackage{fontspec}
+% \RequirePackage{xeCJK}
+
+% 章節標題調整
+\RequirePackage{titlesec}
+\RequirePackage{tocbibind} % 自動將目錄加入主目錄
+\RequirePackage{indentfirst} % 首段縮排
+
+% 圖、標題、子標題
+\RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+
+% 表格
+\RequirePackage[table, xcdraw]{xcolor}
+\RequirePackage{tabularray}
+\RequirePackage{booktabs}
+
+% 連結
+\RequirePackage[hidelinks, linkcolor=black, colorlinks=true, urlcolor=blue, citecolor=black]{hyperref}
+
+% 數學公式
+\RequirePackage{amsmath}
+\RequirePackage{upgreek} % 正體希臘字母
+
+
+% 電路圖、流程圖、數據圖
+\RequirePackage{circuitikz}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\RequirePackage{minted}
+\RequirePackage[version=4]{mhchem} % 化學式
+
+% 紙張和頁面設定
+\RequirePackage{geometry}
+\RequirePackage{fancyhdr} % 頁眉
+% 其他
+\RequirePackage{pgfkeys}         
+\RequirePackage{ifthen} 
+\RequirePackage{setspace} % 間距
+\RequirePackage{lipsum} % 隨機英文
+\RequirePackage{zhlipsum} % 隨機中文
+
+% ===========繁體中文設定===========
+
+\newcommand{\setMyCJK}[1]{%
+  \ifthenelse{\equal{#1}{kai}}{%
+    \setCJKmainfont{TW-Kai}[
+      AutoFakeBold = 2 % 模擬粗體
+    ]%
+  }{%
+    \ifthenelse{\equal{#1}{ming}}{%
+      \setCJKmainfont{PMingLiU}[
+        AutoFakeBold = 2 % 模擬粗體
+      ]%
+    }{%
+      \ifthenelse{\equal{#1}{serif}}{%
+        \setCJKmainfont{Noto Serif CJK TC}%
+      }{%
+        \ifthenelse{\equal{#1}{sans}}{%
+          \setCJKmainfont{Noto Sans CJK TC}%
+        }{%
+          \PackageWarning{customstyle}{未知中文字型選項 `#1'，使用預設字型 TW-Kai}%
+          \setCJKmainfont{TW-Kai}[
+              AutoFakeBold = 2 % 模擬粗體，數值越大效果越粗
+            ]%
+        }%
+      }%
+    }%
+  }%
+}
+
+
+% ctex簡體改繁體
+\ctexset{
+    contentsname = 目錄,
+    listfigurename = 圖目錄,
+    listtablename = 表目錄,
+    figurename = 圖,
+    tablename = 表,
+    abstractname = 摘要,
+    bibname = 參考文獻,
+    appendixname = 附錄,
+    indexname = 索引,
+    today=small, % 日期格式 big: 全中文日期, small: 全阿拉伯數字日期, old: 英文
+    % format
+    section={
+      % name={第,節},
+      % number = \Roman{section},
+      format = \Large\bfseries\raggedright,
+    },
+}
+
+\AtBeginDocument{%
+  \@ifclassloaded{book}{%
+      \ctexset{
+      chapter = {
+        format = \huge\bfseries\raggedright,
+      },
+    }
+  }{%
+  \@ifclassloaded{report}{%
+    \ctexset{
+      chapter = {
+        format = \huge\bfseries\raggedright,
+      },
+    }
+  } {%
+   }
+  }
+}
+
+
+
+% autoref英文改成繁體中文
+\renewcommand{\figureautorefname}{圖}
+\renewcommand{\appendixautorefname}{附錄}
+\renewcommand{\tableautorefname}{表}
+
+% 長表格跨頁文字設定
+\DefTblrTemplate{contfoot-text}{chs}{接下頁\dots}
+\SetTblrTemplate{contfoot-text}{chs}
+\DefTblrTemplate{conthead-text}{chs}{(續表)}
+\SetTblrTemplate{conthead-text}{chs}
+
+% ===========電路圖設定===========
+% 美規
+\ctikzset{american}
+\ctikzset{cute inductors}
+\usetikzlibrary{shapes.geometric, arrows, calc, fit, chains, scopes, positioning, backgrounds, arrows.meta}
+% 把tikz圖片倒出成pdf
+% \usetikzlibrary{external}
+% \tikzexternalize % activate!
+
+% 電路元件樣式
+\ctikzset{bipoles/resistor/height=0.15}
+\ctikzset{bipoles/resistor/width=0.4}
+\ctikzset{bipoles/capacitor/height=0.45}
+\ctikzset{bipoles/capacitor/width=0.1}
+\ctikzset{bipoles/vresistor/height=0.4}
+\ctikzset{bipoles/vresistor/width=0.6}
+\ctikzset{diodes/scale=0.6}
+\ctikzset{sources/scale=0.8}
+\ctikzset{amplifiers/scale=0.7}
+
+% 電晶體箭頭樣式
+\ctikzset{tripoles/mos style=arrows}
+\ctikzset{transistors/arrow pos=end}
+
+% 圓形實心節點設定
+\tikzset{
+  sp/.style={circle, fill, minimum size=3pt, inner sep=1.2pt},
+  myarrow/.style={-{Stealth[length=2mm]}, line width=0.5mm},
+}
+
+\tikzset{%
+  do path picture/.style={%
+    path picture={%
+      \pgfpointdiff{\pgfpointanchor{path picture bounding box}{south west}}%
+        {\pgfpointanchor{path picture bounding box}{north east}}%
+      \pgfgetlastxy\x\y%
+      \tikzset{x=\x/2,y=\y/2}%
+      #1
+    }
+  },
+  sin wave/.style={do path picture={    
+    \draw plot[domain=-2*3:2*3, samples=320] (-0.38*\x,{0.4*sin(\x r)});
+  }},
+  cross/.style={do path picture={    
+    \draw [line cap=round] (-1,-1) -- (1,1) (-1,1) -- (1,-1);
+  }},
+  plus/.style={do path picture={    
+    \draw [line cap=round] (-3/4,0) -- (3/4,0) (0,-3/4) -- (0,3/4);
+  }}
+}
+
+\newcommand{\AddNorm}[2]{
+    \node[on chain, draw, fill=yellow!20, rounded corners, yshift=#1, minimum height=0.5cm] (#2) {\small Add~\&~Norm};
+}
+
+
+% 紙張設定
+\geometry{a4paper, margin=2cm}
+
+
+
+% --------------------自定義顏色-------------------------------------
+% Paul Tol's Notes
+% ------------------------------------------------------------------
+\usepgfplotslibrary{colormaps}
+% ------------------------------------------------------------------
+% BRIGHT color set
+% ------------------------------------------------------------------
+\definecolor{tolBrightBlue}{HTML}{4477AA}
+\definecolor{tolBrightRed}{HTML}{EE6677}
+\definecolor{tolBrightGreen}{HTML}{228833}
+\definecolor{tolBrightYellow}{HTML}{CCBB44}
+\definecolor{tolBrightCyan}{HTML}{66CCEE}
+\definecolor{tolBrightPurple}{HTML}{AA3377}
+\definecolor{tolBrightGrey}{HTML}{BBBBBB}
+\definecolor{tolBrightBlack}{HTML}{000000}
+
+\pgfplotscreateplotcyclelist{tolBright}{
+    {color={tolBrightBlue}},
+    {color={tolBrightRed}},
+    {color={tolBrightGreen}},
+    {color={tolBrightYellow}},
+    {color={tolBrightCyan}},
+    {color={tolBrightPurple}},
+    {color={tolBrightGrey}},
+    {color={tolBrightBlack}},
+}
+
+% ------------------------------------------------------------------
+% HIGH-CONTRAST color set
+% ------------------------------------------------------------------
+\definecolor{tolHighContrastBlue}{HTML}{004488}
+\definecolor{tolHighContrastYellow}{HTML}{DDAA33}
+\definecolor{tolHighContrastRed}{HTML}{BB5566}
+\definecolor{tolHighContrastBlack}{HTML}{000000}
+
+\pgfplotscreateplotcyclelist{tolHighContrast}{
+  {color=tolHighContrastBlue},
+  {color=tolHighContrastYellow},
+  {color=tolHighContrastRed},
+  {color=tolHighContrastBlack},
+}
+
+% ------------------------------------------------------------------
+% vibrant color set
+% ------------------------------------------------------------------
+\definecolor{tolVibrantOrange}{HTML}{EE7733}
+\definecolor{tolVibrantBlue}{HTML}{0077BB}
+\definecolor{tolVibrantCyan}{HTML}{33BBEE}
+\definecolor{tolVibrantMagenta}{HTML}{EE3377}
+\definecolor{tolVibrantRed}{HTML}{CC3311}
+\definecolor{tolVibrantTeal}{HTML}{009988}
+\definecolor{tolVibrantGrey}{HTML}{BBBBBB}
+\definecolor{tolVibrantBlack}{HTML}{000000}
+
+\pgfplotscreateplotcyclelist{tolVibrant}{
+  {color=tolVibrantOrange},
+  {color=tolVibrantBlue},
+  {color=tolVibrantCyan},
+  {color=tolVibrantMagenta},
+  {color=tolVibrantRed},
+  {color=tolVibrantTeal},
+  {color=tolVibrantGrey},
+  {color=tolVibrantBlack},
+}
+
+% ------------------------------------------------------------------
+% MUTED color set
+% ------------------------------------------------------------------
+\definecolor{tolMutedRose}{HTML}{CC6677}
+\definecolor{tolMutedIndigo}{HTML}{332288}
+\definecolor{tolMutedSand}{HTML}{DDCC77}
+\definecolor{tolMutedGreen}{HTML}{117733}
+\definecolor{tolMutedCyan}{HTML}{88CCEE}
+\definecolor{tolMutedWine}{HTML}{882255}
+\definecolor{tolMutedTeal}{HTML}{44AA99}
+\definecolor{tolMutedOlive}{HTML}{999933}
+\definecolor{tolMutedPurple}{HTML}{AA4499}
+\definecolor{tolMutedPaleGrey}{HTML}{DDDDDD}
+\definecolor{tolMutedBlack}{HTML}{000000}
+
+\pgfplotscreateplotcyclelist{tolMuted}{
+  {color=tolMutedRose},
+  {color=tolMutedIndigo},
+  {color=tolMutedSand},
+  {color=tolMutedGreen},
+  {color=tolMutedCyan},
+  {color=tolMutedWine},
+  {color=tolMutedTeal},
+  {color=tolMutedOlive},
+  {color=tolMutedPurple},
+  {color=tolMutedPaleGrey},
+  {color=tolMutedBlack},
+}
+
+% ------------------------------------------------------------------
+% medium-contrast color set
+% ------------------------------------------------------------------
+\definecolor{tolMedContrastLightBlue}{HTML}{6699CC}
+\definecolor{tolMedContrastDarkBlue}{HTML}{004488}
+\definecolor{tolMedContrastLightYellow}{HTML}{EECC66}
+\definecolor{tolMedContrastDarkRed}{HTML}{994455}
+\definecolor{tolMedContrastDarkYellow}{HTML}{997700}
+\definecolor{tolMedContrastLightRed}{HTML}{EE99AA}
+\definecolor{tolMedContrastBlack}{HTML}{000000}
+
+\pgfplotscreateplotcyclelist{tolMediumContrast}{
+  {color=tolMedContrastLightBlue},
+  {color=tolMedContrastDarkBlue},
+  {color=tolMedContrastLightYellow},
+  {color=tolMedContrastDarkRed},
+  {color=tolMedContrastDarkYellow},
+  {color=tolMedContrastLightRed},
+  {color=tolMedContrastBlack},
+}
+% ------------------------------------------------------------------
+% light color set
+% ------------------------------------------------------------------
+\definecolor{tolLightBlue}{HTML}{77AADD}
+\definecolor{tolLightOrange}{HTML}{EE8866}
+\definecolor{tolLightYellow}{HTML}{EEDD88}
+\definecolor{tolLightPink}{HTML}{FFAABB}
+\definecolor{tolLightCyan}{HTML}{99DDFF}
+\definecolor{tolLightMint}{HTML}{44BB99}
+\definecolor{tolLightPear}{HTML}{BBCC33}
+\definecolor{tolLightOlive}{HTML}{AAAA00}
+\definecolor{tolLightPaleGrey}{HTML}{DDDDDD}
+\definecolor{tolLightBlack}{HTML}{000000}
+
+\pgfplotscreateplotcyclelist{tolLight}{
+  {color=tolLightBlue},
+  {color=tolLightOrange},
+  {color=tolLightYellow},
+  {color=tolLightPink},
+  {color=tolLightCyan},
+  {color=tolLightMint},
+  {color=tolLightPear},
+  {color=tolLightOlive},
+  {color=tolLightPaleGrey},
+  {color=tolLightBlack},
+}
+
+% 定義 Pale 顏色
+\definecolor{paleBlue}{HTML}{BBCCEE}
+\definecolor{paleCyan}{HTML}{CCEEFF}
+\definecolor{paleGreen}{HTML}{CCDDAA}
+\definecolor{paleYellow}{HTML}{EEEEDD}
+\definecolor{paleRed}{HTML}{FFCCCC}
+\definecolor{paleGrey}{HTML}{DDDDDD}
+
+% 定義 Dark 顏色
+\definecolor{darkBlue}{HTML}{222255}
+\definecolor{darkCyan}{HTML}{225555}
+\definecolor{darkGreen}{HTML}{225522}
+\definecolor{darkYellow}{HTML}{666633}
+\definecolor{darkRed}{HTML}{663333}
+\definecolor{darkGrey}{HTML}{555555}
+
+
+
+
+\endinput
