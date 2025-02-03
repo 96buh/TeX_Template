@@ -38,6 +38,13 @@
 \RequirePackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \RequirePackage{minted}
+\setminted{
+  linenos=false, % line number
+  breaklines, % 自動換行
+  bgcolor=gray!10, % 背景色
+  fontfamily=tt,
+}
+\usemintedstyle{gruvbox-light} % gruvbox-light主題 
 \RequirePackage[version=4]{mhchem} % 化學式
 
 % 紙張和頁面設定

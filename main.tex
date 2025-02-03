@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \usepackage{customstyle}
 % "ming": 新細明體, "kai": TW-Kai（楷體）, "serif": Noto Serif CJK TC（有襯線）, "sans": Noto Sans CJK TC（無襯線）
 % Overleaf沒有新細明體
@@ -16,6 +16,29 @@
 \zhlipsum[1]
 \section{英文測試}
 \lipsum[1]
+\section{數學測試}
+\begin{align}
+	\int_{-\pi }^{\pi } x^{4} + \frac{3}{7}x^2 + \sqrt{6}   \,\mathrm{d}x & = \frac{2 \pi (5 \pi^{2} + 35 \sqrt{6} + 7 \pi^{4})}{35} \\
+\end{align}
+\[
+	\begin{bmatrix}
+		1 & 2 & 3 \\
+		4 & 5 & 6 \\
+		7 & 8 & 9
+	\end{bmatrix}
+\]
+
+\section{程式碼測試}
+
+\begin{minted}{python}
+# Vanilla gradient descent
+    w = initialize_weights()
+    for t in range(num_steps):
+        dw = compute_gradient(loss_fn, data, w)
+        w -= learning_rate * dw
+\end{minted}
+
+\section{}
 
 
 % 參考文獻
