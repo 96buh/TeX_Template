@@ -11,7 +11,7 @@
 
 % 章節標題調整
 \RequirePackage{titlesec}
-\RequirePackage{tocbibind} % 自動將目錄加入主目錄
+% \RequirePackage{tocbibind} % 自動將目錄加入主目錄
 \RequirePackage{indentfirst} % 首段縮排
 
 % 圖、標題、子標題
@@ -117,6 +117,9 @@
       \ctexset{
       chapter = {
         format = \huge\bfseries\raggedright,
+        % 更改章節名稱為Lecture
+        name={Lecture~},
+        number=\arabic{chapter},
       },
     }
   }{%
@@ -124,6 +127,9 @@
     \ctexset{
       chapter = {
         format = \huge\bfseries\raggedright,
+        % 更改章節名稱為Lecture
+        name={Lecture~},
+        number=\arabic{chapter},
       },
     }
   } {%
@@ -131,7 +137,16 @@
   }
 }
 
-
+% 重製chapter計數，並設定新的chapter名字
+\newcommand{\SetChapterStyle}[1]{%
+  \setcounter{chapter}{0} % chapter重新計數
+  \ctexset{
+    chapter = {
+      name={#1~}, % 更改章節名稱為
+      number=\arabic{chapter},
+    }
+  }
+}
 
 % autoref英文改成繁體中文
 \renewcommand{\figureautorefname}{圖}
