@@ -29,17 +29,48 @@
 \]
 
 \section{程式碼測試}
+\subsection{pseudocode code}
+\begin{algorithm}
+	\caption{演算法名稱}\label{alg:guessnumber}
+	\begin{algorithmic}[1]
+		\State \(target \gets \text{RANDOM}(1, 100) \)
+		\State \(attempts \gets 0\)
+		\While{True}
+		\State \(guess \gets \text{INPUT}() \)
+		\State \(attempts \gets attempts + 1\)
+		\If{\(guess = target\)}
+		\State \textbf{break}
+		\ElsIf{\(guess > target\)}
+		\State \textbf{print} "Too high"
+		\Else
+		\State \textbf{print} "Too low"
+		\EndIf
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
 
+\subsection{Python程式碼}
 \begin{minted}{python}
-# Vanilla gradient descent
-    w = initialize_weights()
-    for t in range(num_steps):
-        dw = compute_gradient(loss_fn, data, w)
-        w -= learning_rate * dw
+    print("Hello, world!")
+    def add(a, b):
+        return a + b
 \end{minted}
 
-\section{}
+\section{Color Box test}
+\nt{這是一個Note}
 
+\ex{這是範例標題}{
+	\[
+		\int_{-\pi }^{\pi } x^{4} + \frac{3}{7}x^2 + \sqrt{6}   \,\mathrm{d}x = \frac{2 \pi (5 \pi^{2} + 35 \sqrt{6} + 7 \pi^{4})}{35}
+	\]
+}
+\ex{}{}
+
+\thm{}{If $x\in$ open set $V$ then $\exists$ $\delta>0$ such that $B_{\delta}(x)\subset V$}
+
+\qs{問題}{這是一個問題}
+
+\dfn{Limit in R}{Let \(\{s_n\}\) be a sequence in \(\mathbb{R}\) }
 
 % 參考文獻
 \nocite{*}
