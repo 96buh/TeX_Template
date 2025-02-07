@@ -3,7 +3,8 @@
 \usepackage{customstyle}
 % "ming": 新細明體, "kai": TW-Kai（楷體）, "serif": Noto Serif CJK TC（有襯線）, "sans": Noto Sans CJK TC（無襯線）
 % Overleaf沒有新細明體
-\setMyCJK{kai}
+\setMyCJK{serif}
+
 \usepackage{newtxtext, newtxmath}
 
 \title{簡單模板}
@@ -30,10 +31,17 @@
 		7 & 8 & 9
 	\end{bmatrix}
 \]
+\subsection{sympy test}
+\begin{align}
+	\int_{-\pi }^{\pi } \frac{2}{6}x^{5} -21x^2 + x \,\mathrm{d}x = - 14 \pi^{3}
+\end{align}
+\[
+	1+1 = 2
+\]
 
 \section{程式碼測試}
 \subsection{pseudocode code}
-\begin{algorithm}
+\begin{algorithm}[b]
 	\caption{演算法名稱}\label{alg:guessnumber}
 	\begin{algorithmic}[1]
 		\State \(target \gets \text{RANDOM}(1, 100) \)
@@ -57,10 +65,20 @@
     print("Hello, world!")
     def add(a, b):
         return a + b
+
+    class MyClass:
+        def __init__(self, name):
+            self.name = name
+
+        def say_hello(self):
+            print(f"Hello, {self.name}!")
+
+    my_instance = MyClass("Alice")
+    my_instance.say_hello()
 \end{minted}
 
 \section{Color Box test}
-\nt{這是一個Note}
+\nt{這是一個Note，哈哈}
 
 \ex{這是範例標題}{
 	\[
@@ -69,13 +87,13 @@
 }
 \ex{}{}
 
-\thm{}{If $x\in$ open set $V$ then $\exists$ $\delta>0$ such that $B_{\delta}(x)\subset V$}
+\thm{}{}
 
 \qs{問題}{這是一個問題}
 
 \dfn{Limit in R}{Let \(\{s_n\}\) be a sequence in \(\mathbb{R}\) }
 
-
+這是一個註釋\footnote{這是一個註釋}。
 
 % 參考文獻
 \nocite{*}

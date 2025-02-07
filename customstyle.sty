@@ -5,7 +5,7 @@
 
 % 中文支援
 \RequirePackage{zhnumber}
-\RequirePackage[UTF8, heading = true]{ctex}
+\RequirePackage[UTF8, heading = true, fontset=none]{ctex}
 \RequirePackage{fontspec}
 % \RequirePackage{xeCJK}
 
@@ -61,36 +61,56 @@
 \RequirePackage{setspace} % 間距
 \RequirePackage{lipsum} % 隨機英文
 \RequirePackage{zhlipsum} % 隨機中文
+\RequirePackage{xstring}
 
-% ===========繁體中文設定===========
+% ===========字體設定===========
 
 \newcommand{\setMyCJK}[1]{%
   \ifthenelse{\equal{#1}{kai}}{%
-    \setCJKmainfont{TW-Kai}[
-      AutoFakeBold = 2 % 模擬粗體
-    ]%
+    \IfFontExistsTF{TW-Kai}%
+      {\setCJKmainfont{TW-Kai}[AutoFakeBold=2]}%
+      {\IfFontExistsTF{BiauKaiTC}%
+        {\setCJKmainfont{BiauKaiTC}[AutoFakeBold=3]}%
+        {\PackageWarning{customstyle}{找不到楷體，請檢查系統安裝狀況！}}%
+      }%
   }{%
     \ifthenelse{\equal{#1}{ming}}{%
-      \setCJKmainfont{PMingLiU}[
-        AutoFakeBold = 2 % 模擬粗體
-      ]%
+      \IfFontExistsTF{PMingLiU}%
+        {\setCJKmainfont{PMingLiU}[AutoFakeBold=2]}%
+        {\IfFontExistsTF{MingLiU}%
+          {\setCJKmainfont{MingLiU}[AutoFakeBold=2]}%
+          {\PackageWarning{customstyle}{找不到楷體，請檢查系統安裝狀況！}}%
+        }%
     }{%
       \ifthenelse{\equal{#1}{serif}}{%
-        \setCJKmainfont{Noto Serif CJK TC}%
+        \IfFontExistsTF{Noto Serif CJK TC}%
+          {\setCJKmainfont{Noto Serif CJK TC}}%
+          {\IfFontExistsTF{Songti TC}%
+            {\setCJKmainfont{Songti TC}}%
+            {\PackageWarning{customstyle}{找不到襯線字體，請檢查系統安裝狀況！}}%
+          }%
       }{%
         \ifthenelse{\equal{#1}{sans}}{%
-          \setCJKmainfont{Noto Sans CJK TC}%
+          \IfFontExistsTF{Noto Sans CJK TC}%
+            {\setCJKmainfont{Noto Sans CJK TC}}%
+            {\IfFontExistsTF{PingFang TC}%
+              {\setCJKmainfont{PingFang TC}}%
+              {\PackageWarning{customstyle}{找不到無襯線字體，請檢查系統安裝狀況！}}%
+            }%
         }{%
-          \PackageWarning{customstyle}{未知中文字型選項 `#1'，使用預設字型 TW-Kai}%
-          \setCJKmainfont{TW-Kai}[
-              AutoFakeBold = 2 % 模擬粗體，數值越大效果越粗
-            ]%
+          % 當沒有輸入或輸入錯誤時，使用預設楷體
+          \IfFontExistsTF{TW-Kai}%
+            {\setCJKmainfont{TW-Kai}[AutoFakeBold=2]}%
+            {\IfFontExistsTF{BiauKaiTC}%
+              {\setCJKmainfont{BiauKaiTC}[AutoFakeBold=2]}%
+              {\PackageWarning{customstyle}{找不到預設楷體，請檢查系統安裝狀況！}}%
+            }%
         }%
       }%
     }%
   }%
 }
-
+\setmonofont{JetBrainsMono Nerd Font Mono}
 
 % ctex簡體改繁體
 \ctexset{
@@ -470,7 +490,7 @@
 	detach title,
 	before upper = \tcbtitle\par\smallskip,
 	coltitle = darkBlue!75,
-	fonttitle = \bfseries\sffamily,
+	fonttitle = \bfseries,
 	description font = \mdseries,
 	separator sign none,
 	segmentation style={solid, paleBlue},
