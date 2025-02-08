@@ -2,37 +2,29 @@
 % Author: Homer
 % =======================================
 \ProvidesPackage{customstyle}
-
-% 中文支援
+% =======================================
 \RequirePackage{zhnumber}
 \RequirePackage[UTF8, heading = true, fontset=none]{ctex}
 \RequirePackage{fontspec}
-% \RequirePackage{xeCJK}
 
-% 章節標題調整
-\RequirePackage{titlesec}
+\RequirePackage{titlesec} % 章節標題
 % \RequirePackage{tocbibind} % 自動將目錄加入主目錄
 \RequirePackage{indentfirst} % 首段縮排
 
-% 圖、標題、子標題
 \RequirePackage{graphicx}
 \RequirePackage{caption}
 \RequirePackage{subcaption}
 
-% 表格
 \RequirePackage[table, xcdraw]{xcolor}
 \RequirePackage{tabularray}
 \RequirePackage{booktabs}
 \RequirePackage{tcolorbox} % 顏色框
 \tcbuselibrary{listings,theorems}
 
-% 連結
 \RequirePackage[hidelinks, linkcolor=black, colorlinks=true, urlcolor=blue, citecolor=black]{hyperref}
 
-% 數學公式
 \RequirePackage{amsmath}
 \RequirePackage{upgreek} % 正體希臘字母
-
 
 % 電路圖、流程圖、數據圖
 \RequirePackage{circuitikz}
@@ -49,19 +41,28 @@
 }
 \usemintedstyle{gruvbox-light} % gruvbox-light主題 
 \RequirePackage{algorithm}
-\RequirePackage{algpseudocode}
+\RequirePackage{algpseudocode} 
 \RequirePackage[version=4]{mhchem} % 化學式
 
-% 紙張和頁面設定
 \RequirePackage{geometry}
 \RequirePackage{fancyhdr} % 頁眉
 % 其他
-\RequirePackage{pgfkeys}         
 \RequirePackage{ifthen} 
 \RequirePackage{setspace} % 間距
 \RequirePackage{lipsum} % 隨機英文
 \RequirePackage{zhlipsum} % 隨機中文
 \RequirePackage{xstring}
+
+% inkscape
+\RequirePackage{import}
+\RequirePackage{xifthen}
+\RequirePackage{pdfpages}
+\RequirePackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./Figures/}{#1.pdf_tex}
+}
 
 % ===========字體設定===========
 
@@ -70,7 +71,7 @@
     \IfFontExistsTF{TW-Kai}%
       {\setCJKmainfont{TW-Kai}[AutoFakeBold=2]}%
       {\IfFontExistsTF{BiauKaiTC}%
-        {\setCJKmainfont{BiauKaiTC}[AutoFakeBold=3]}%
+        {\setCJKmainfont{BiauKaiTC}[AutoFakeBold=2.5]}%
         {\PackageWarning{customstyle}{找不到楷體，請檢查系統安裝狀況！}}%
       }%
   }{%
@@ -102,7 +103,7 @@
           \IfFontExistsTF{TW-Kai}%
             {\setCJKmainfont{TW-Kai}[AutoFakeBold=2]}%
             {\IfFontExistsTF{BiauKaiTC}%
-              {\setCJKmainfont{BiauKaiTC}[AutoFakeBold=2]}%
+              {\setCJKmainfont{BiauKaiTC}[AutoFakeBold=2.5]}%
               {\PackageWarning{customstyle}{找不到預設楷體，請檢查系統安裝狀況！}}%
             }%
         }%

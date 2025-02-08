@@ -1,10 +1,9 @@
 \documentclass[12pt]{article}
 % \documentclass[12pt, oneside]{book}
 \usepackage{customstyle}
-% "ming": 新細明體, "kai": TW-Kai（楷體）, "serif": Noto Serif CJK TC（有襯線）, "sans": Noto Sans CJK TC（無襯線）
+% "ming": 新細明體, "kai": TW-Kai/BiauKaiTC, "serif": Noto Serif CJK TC（有襯線）/Songti TC, "sans": Noto Sans CJK TC（無襯線）/PingFang TC
 % Overleaf沒有新細明體
-\setMyCJK{serif}
-
+\setMyCJK{sans}
 \usepackage{newtxtext, newtxmath}
 
 \title{簡單模板}
@@ -15,7 +14,6 @@
 \maketitle
 \tableofcontents
 
-
 \section{中文測試}
 \zhlipsum[1]
 \section{英文測試}
@@ -24,25 +22,10 @@
 \begin{align}
 	\int_{-\pi }^{\pi } x^{4} + \frac{3}{7}x^2 + \sqrt{6}   \,\mathrm{d}x & = \frac{2 \pi (5 \pi^{2} + 35 \sqrt{6} + 7 \pi^{4})}{35} \\
 \end{align}
-\[
-	\begin{bmatrix}
-		1 & 2 & 3 \\
-		4 & 5 & 6 \\
-		7 & 8 & 9
-	\end{bmatrix}
-\]
-\subsection{sympy test}
-\begin{align}
-	\int_{-\pi }^{\pi } \frac{2}{6}x^{5} -21x^2 + x \,\mathrm{d}x = - 14 \pi^{3}
-\end{align}
-\[
-	1+1 = 2
-\]
-
 \section{程式碼測試}
 \subsection{pseudocode code}
-\begin{algorithm}[b]
-	\caption{演算法名稱}\label{alg:guessnumber}
+\begin{algorithm}
+	\caption{演算法名稱}
 	\begin{algorithmic}[1]
 		\State \(target \gets \text{RANDOM}(1, 100) \)
 		\State \(attempts \gets 0\)
@@ -75,25 +58,47 @@
 
     my_instance = MyClass("Alice")
     my_instance.say_hello()
+    print("Hi")
 \end{minted}
 
 \section{Color Box test}
-\nt{這是一個Note，哈哈}
-
+\dfn{Limit in R}{Let \(\{s_n\}\) be a sequence in \(\mathbb{R}\) }
+\thm{}{}
 \ex{這是範例標題}{
 	\[
 		\int_{-\pi }^{\pi } x^{4} + \frac{3}{7}x^2 + \sqrt{6}   \,\mathrm{d}x = \frac{2 \pi (5 \pi^{2} + 35 \sqrt{6} + 7 \pi^{4})}{35}
 	\]
 }
-\ex{}{}
-
-\thm{}{}
-
+\nt{這是一個Note}
 \qs{問題}{這是一個問題}
-
-\dfn{Limit in R}{Let \(\{s_n\}\) be a sequence in \(\mathbb{R}\) }
-
 這是一個註釋\footnote{這是一個註釋}。
+我草
+
+% create 3 column figure with 3 images example
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{example-image-a}
+		\caption{Caption 1}
+		\label{fig:sub1}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{example-image-b}
+		\caption{Caption 2}
+		\label{fig:sub2}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{example-image-c}
+		\caption{Caption 3}
+		\label{fig:sub3}
+	\end{subfigure}
+	\caption{Caption for this figure with three images}
+	\label{fig:image3}
+\end{figure}
+
 
 % 參考文獻
 \nocite{*}

@@ -309,3 +309,4 @@ TSWLatexianTemp*
 # ignore all files in out folder
 out/*
 .venv
+.vscode
