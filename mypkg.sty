@@ -38,6 +38,7 @@
   bgcolor=gruvbox-bg-light!50, % 背景色
   % bgcolor=white,
   fontfamily=tt,
+  bgcolorpadding=0.5em       
 }
 \usemintedstyle{gruvbox-light} % gruvbox-light主題 
 \RequirePackage{algorithm}
@@ -524,6 +525,33 @@
 		},
 	#1
 }{def}
+
+%================================
+% SOLUTION BOX
+%================================
+% 只有粗斜體的Solution:
+\newcommand{\sol}{\noindent\textbf{\textit{Solution:}} }
+% 有框框的Solution:
+\newtcolorbox{solution}{enhanced,
+	colback=white,
+	colframe=tolBrightGrey!80!black,
+	attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+	title=Solution,
+	boxed title size=title,
+	boxed title style={%
+			sharp corners,
+			rounded corners=northwest,
+			colback=tcbcolframe,
+			boxrule=0pt,
+		},
+	underlay boxed title={%
+			\path[fill=tcbcolframe] (title.south west)--(title.south east)
+			to[out=0, in=180] ([xshift=5mm]title.east)--
+			(title.center-|frame.east)
+			[rounded corners=\kvtcb@arc] |-
+			(frame.north) -| cycle;
+		},
+}
 
 %================================
 % DEFINITION BOX
