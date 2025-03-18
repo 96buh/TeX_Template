@@ -1,10 +1,10 @@
-\documentclass[12pt]{article}
-% \documentclass[12pt, oneside]{book}
+%!TeX program = xelatex
+% \documentclass[12pt]{article}
+\documentclass[12pt, oneside]{book}
 \usepackage{mypkg}
 % "ming": 新細明體, "kai": TW-Kai/BiauKaiTC, "serif": Noto Serif CJK TC（有襯線）/Songti TC, "sans": Noto Sans CJK TC（無襯線）/PingFang TC
 % Overleaf沒有新細明體
-% \setMyCJK{sans}
-\setCJKmainfont{PingFang TC}
+\setMyCJK{kai}
 \usepackage{newtxtext, newtxmath}
 
 \title{簡單模板}
@@ -15,6 +15,7 @@
 \maketitle
 \tableofcontents
 
+\chapter{123123123}
 \section{中文測試}
 \zhlipsum[1]
 \section{英文測試}
@@ -98,6 +99,10 @@
 	\caption{Caption for this figure with three images}
 	\label{fig:image3}
 \end{figure}
+
+這是我輸入的測試用的中文
+This is a test sentece.
+
 
 
 % 參考文獻
